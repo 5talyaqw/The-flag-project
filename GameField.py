@@ -5,8 +5,7 @@ import random
 import Screen
 
 field = []
-mine_image = pygame.image.load(consts.MINE_IMG)
-mine_image = pygame.transform.scale(mine_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
+mine = consts.BUSH_IMG
 
 def unique_mine_positions():
     mines = consts.TOTAL_MINES
@@ -17,6 +16,13 @@ def unique_mine_positions():
         positions.add((row, col))
     return positions
 
+
+def create_empty_field():
+    global field
+    field = [[0 for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
+    create_field()
+
+
 def create_field():
     global field
     mine_positions = unique_mine_positions()
@@ -24,6 +30,12 @@ def create_field():
         for col in range(consts.MATRIX_COLS):
             x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
             y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-
             if (row, col) in mine_positions:
-                Screen.screen.blit(mine_image, (x, y))
+                field[row][col] = mine
+
+def update_grass_mines():
+    global field
+    for row in range(len(field) - 1):
+        for col in range(len(field[0]) - 1):
+            if field[row][col] == consts.BUSH_IMG:
+                field[row][col] = consts.MINE_IMG

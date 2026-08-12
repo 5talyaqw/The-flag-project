@@ -11,7 +11,6 @@ state = {
     "is_window_open": True,
     "state" : consts.RUNNING_STATE,
     "is_soldier_moving" : False,
-    "is_night" : False,
     "is_shown" : 0,
     "night_vision" : True
 }
@@ -20,8 +19,6 @@ def main():
     pygame.init()
     Screen.create_screen()
     update_text()
-
-
     while state["is_window_open"]:
 
         handle_user()
@@ -29,12 +26,7 @@ def main():
         if state["is_soldier_moving"]:
                 # see where he moves in a function and move him
             pass
-        if state["is_night"]:
-            GameField.mine = "mine.png"
-            Soldier.soldier = "soldier_nigth.png"
-        else:
-            GameField.mine = "grass.png"
-            Soldier.soldier = "soldier.png"
+
         pygame.display.update()
     pygame.quit()
 
@@ -64,21 +56,25 @@ def handle_user():
                 pass
 
             if event.key == pygame.K_RETURN:
-                state["night_vision"] = True
-                allocated_time = 1 # 1 second wait
-                start = time.time()
-
-                Screen.update_screen_net()
-                pygame.display.update()
-
-                while state["night_vision"]:
-                    elapsed_time = time.time() - start
-
-                    if elapsed_time >= allocated_time:
-                        Screen.create_screen()
-                        state["night_vision"] = False
+                night_vision()
 
 
+def night_vision():
+    state["night_vision"] = True
+    GameField.update_grass_mines()
+
+    allocated_time = 1  # 1 second wait
+    start = time.time()
+
+    Screen.update_screen_net(consts.MINE_IMG)
+    pygame.display.update()
+
+    while state["night_vision"]:
+        elapsed_time = time.time() - start
+
+        if elapsed_time >= allocated_time:
+            Screen.create_screen()
+            state["night_vision"] = False
 
 
 
