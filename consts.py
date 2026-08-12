@@ -1,3 +1,14 @@
+SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\soldier.png"
+BUSH_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\grass.png"
+MINE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\mine.png"
+SOLIDER_NIGHT_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider_night.png"
+FLAG_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\flag.png"
+EXPLOSION_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\explotion.png"
+INJURY_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\injury.png"
+DINO_SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider (2).png"
+SNAKE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\snake.png"
+
+
 MATRIX_ROWS = 25
 MATRIX_COLS = 50
 CELL_SIZE = 20

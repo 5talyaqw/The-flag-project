@@ -1,3 +1,5 @@
+import time
+
 import screen
 import consts
 import game_field
@@ -9,11 +11,13 @@ pygame.init()
 def main():
     screen.create_screen()
     running = True
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
+                screen.update_text(True)
                 if event.key == pygame.K_DOWN:
                     pass
                 if event.key == pygame.K_UP:
