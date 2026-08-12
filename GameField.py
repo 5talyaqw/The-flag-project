@@ -9,7 +9,7 @@ mine = consts.BUSH_IMG
 grass_positions = consts.GRASS_POSITIONS
 
 
-def unique_mine_positions():
+def unique_grass_positions():
     mines = consts.TOTAL_GRASS
     while len(grass_positions) < mines:
         row = random.randint(0, consts.MATRIX_ROWS - 1)
@@ -26,12 +26,12 @@ def create_empty_field():
 
 def create_field():
     global field
-    mine_positions = unique_mine_positions()
+    grass_pos = unique_grass_positions()
     for row in range(consts.MATRIX_ROWS):
         for col in range(consts.MATRIX_COLS):
             x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
             y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-            if (row, col) in mine_positions:
+            if (row, col) in grass_pos:
                 field[row][col] = mine
 
 def put_mines_instead_grass():

@@ -57,3 +57,6 @@ def draw_mine_grass(item):
 
 def draw_soldier():
     Soldier.create()
+
+
+

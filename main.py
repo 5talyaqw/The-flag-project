@@ -15,6 +15,8 @@ state = {
     "night_vision" : True
 }
 
+KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
+
 def main():
     pygame.init()
     Screen.create_screen()
@@ -23,10 +25,6 @@ def main():
 
         handle_user()
         Screen.draw_soldier()
-        if state["is_soldier_moving"]:
-                # see where he moves in a function and move him
-            pass
-
         pygame.display.update()
     pygame.quit()
 
@@ -43,17 +41,8 @@ def handle_user():
             if state["is_shown"] == 1:
                 update_text(state["is_shown"])
 
-            if event.key == pygame.K_DOWN:
-                pass
-
-            if event.key == pygame.K_UP:
-                pass
-
-            if event.key == pygame.K_LEFT:
-                pass
-
-            if event.key == pygame.K_RIGHT:
-                pass
+            if event.key in KEYS:
+                Soldier.move_soldier(event.key)
 
             if event.key == pygame.K_RETURN:
                 night_vision()
