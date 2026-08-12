@@ -1,4 +1,3 @@
-from sys import set_coroutine_origin_tracking_depth
 import pygame
 import consts
 
@@ -15,12 +14,13 @@ def create_screen():
 def update_text(disappear=False):
     # set text on the top left
     font = pygame.font.SysFont(None, 20)
-    text = font.render('Welcome to the flag game! have fun', True, (255,122,149))
-    text_rect = text.get_rect()
-    text_rect.topleft = (0,0)
-    screen.blit(text, text_rect)
 
-    if disappear:
+    if not disappear:
+        text = font.render('Welcome to the flag game! have fun', True, (255, 122, 149))
+        text_rect = text.get_rect()
+        text_rect.topleft = (0, 0)
+        screen.blit(text, text_rect)
+    else:
         screen.fill(color=pygame.color.Color(4, 95, 11))
 
 
