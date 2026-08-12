@@ -9,6 +9,7 @@ DINO_SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_imag
 SNAKE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\snake.png"
 
 
+MARGIN = 2
 MATRIX_ROWS = 25
 MATRIX_COLS = 50
 CELL_SIZE = 20
@@ -19,11 +20,13 @@ SOLDIER_WIDTH = 2
 SOLDIER_HEIGHT = 4
 SOLDIER_SIZE = (SOLDIER_WIDTH, SOLDIER_HEIGHT)
 
+TOTAL_MINES = 20
+MINE_POSITIONS = set()
 FLAG_HEIGHT = 4
 FLAG_WIDTH = 3
 MINE_HEIGHT = 3
 MINE_WIDTH = 2
-BACKGROUND_COLOR = (37, 150, 190)
+BACKGROUND_COLOR = (4, 95, 11)
 
 RUNNING_STATE = 1
 LOSE_STATE = 2
