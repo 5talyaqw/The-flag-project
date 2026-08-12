@@ -6,15 +6,16 @@ import Screen
 
 field = []
 mine = consts.BUSH_IMG
+grass_positions = consts.GRASS_POSITIONS
+
 
 def unique_mine_positions():
-    mines = consts.TOTAL_MINES
-    positions = consts.MINE_POSITIONS
-    while len(positions) < mines:
+    mines = consts.TOTAL_GRASS
+    while len(grass_positions) < mines:
         row = random.randint(0, consts.MATRIX_ROWS - 1)
         col = random.randint(0, consts.MATRIX_COLS - 1)
-        positions.add((row, col))
-    return positions
+        grass_positions.add((row, col))
+    return grass_positions
 
 
 def create_empty_field():
@@ -33,9 +34,18 @@ def create_field():
             if (row, col) in mine_positions:
                 field[row][col] = mine
 
+def put_mines_instead_grass():
+    mine_positions = consts.MINE_POSITIONS
+    while len(mine_positions) < consts.TOTAL_MINES:
+        pos = random.choice(list(grass_positions))
+        mine_positions.add(pos)
+    return mine_positions
+
+
 def update_grass_mines():
     global field
+    mine_pos = put_mines_instead_grass()
     for row in range(len(field) - 1):
         for col in range(len(field[0]) - 1):
-            if field[row][col] == consts.BUSH_IMG:
+            if (row, col) in mine_pos:
                 field[row][col] = consts.MINE_IMG
