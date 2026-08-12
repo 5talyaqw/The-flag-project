@@ -6,7 +6,7 @@ import random
 import Screen
 
 field = []
-mine = "mine.png"
+mine = "grass.png"
 mine_image = pygame.image.load(mine)
 mine_image = pygame.transform.scale(mine_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
 
@@ -23,8 +23,8 @@ def create_field():
     mine_positions = unique_mine_positions()
     for row in range(consts.MATRIX_ROWS):
         for col in range(consts.MATRIX_COLS):
-            x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-            y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
+            x = col * consts.CELL_SIZE
+            y = row * consts.CELL_SIZE
 
             if (row, col) in mine_positions:
                 Screen.screen.blit(mine_image, (x, y))

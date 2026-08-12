@@ -3,8 +3,9 @@ from sys import set_coroutine_origin_tracking_depth
 import pygame
 import consts
 import GameField
+import Soldier
 pygame.init()
-screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
+screen = pygame.display.set_mode((consts.SCREEN_WIDTH, consts.SCREEN_HEIGHT))
 
 def create_screen():
     # screen.fill(color=pygame.color.Color(4,95,11))
@@ -24,14 +25,18 @@ def update_text(disappear=False):
         text_rect.topleft = (0, 0)
         screen.blit(text, text_rect)
     else:
-        screen.fill(color=pygame.color.Color(4, 95, 11))
-
+        create_screen()
 
 def update_screen_net():
     screen.fill(color=pygame.color.Color(0,0,0))
 
+    # vertical lines
+    for x in range(0, consts.SCREEN_WIDTH, consts.CELL_SIZE):
+        pygame.draw.line(screen, (4,95,11), (x,0),(x, consts.SCREEN_HEIGHT))
+
+    # horozinal lines
+    for y in range(0, consts.SCREEN_HEIGHT, consts.CELL_SIZE):
+        pygame.draw.line(screen, (4,95,11), (0,y),(consts.SCREEN_WIDTH, y))
+
 def draw_soldier():
-    # current_dir = os.path.dirname(__file__)
-    # image_path = os.path.join(current_dir, "pics", "soldier.png")
-    soldier_img = pygame.image.load("soldier.png").convert_alpha()
-    screen.blit(soldier_img,(0,0))
+    Soldier.create()
