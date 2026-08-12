@@ -1,12 +1,13 @@
 import pygame
 import consts
-import soldier
+import Soldier
 import random
 
 import Screen
 
 field = []
-mine_image = pygame.image.load("mine.png")
+mine = "mine.png"
+mine_image = pygame.image.load(mine)
 mine_image = pygame.transform.scale(mine_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
 
 def unique_mine_positions():

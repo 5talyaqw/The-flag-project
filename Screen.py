@@ -2,7 +2,7 @@ import os
 from sys import set_coroutine_origin_tracking_depth
 import pygame
 import consts
-import game_field
+import GameField
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
 
@@ -12,7 +12,7 @@ def create_screen():
     #
     # update_text()
     screen.fill(consts.BACKGROUND_COLOR)
-    game_field.create_field()
+    GameField.create_field()
 
 def update_text(disappear=False):
     # set text on the top left

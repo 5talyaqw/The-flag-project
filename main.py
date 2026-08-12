@@ -1,14 +1,16 @@
 from pygame import event
 
 import Screen
+import Soldier
 import consts
-import game_field
+import GameField
 import pygame
 
 state = {
     "is_window_open": True,
     "state" : consts.RUNNING_STATE,
     "is_soldier_moving" : False,
+    "is_night" : False,
 }
 
 def main():
@@ -21,8 +23,12 @@ def main():
         if state["is_soldier_moving"]:
                 # see where he moves in a function and move him
             pass
-
-
+        if state["is_night"]:
+            GameField.mine = "mine.png"
+            Soldier.soldier = "soldier_nigth.png"
+        else:
+            GameField.mine = "grass.png"
+            Soldier.soldier = "soldier.png"
         pygame.display.update()
     pygame.quit()
 
