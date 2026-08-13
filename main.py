@@ -34,11 +34,12 @@ def main():
             pass
         elif state["state"] == 2:
             Screen.draw_lose_message()
-
+            break
 
         elif state["state"] == 3:
 
             Screen.draw_win_message()
+            break
     pygame.quit()
 
 
