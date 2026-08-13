@@ -6,7 +6,6 @@ import Soldier
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
 
-
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
@@ -83,10 +82,7 @@ def draw_flag():
 def draw_lose_message():
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
-    soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
-    soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
-                                                                             consts.SCREEN_HEIGHT))
-    screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+
 def draw_message(message, font_size, color, location):
     font = pygame.font.SysFont(consts.FONT_NAME, font_size)
     text_img = font.render(message, True, color)

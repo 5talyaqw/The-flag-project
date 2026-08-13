@@ -12,8 +12,8 @@ grass_positions = consts.GRASS_POSITIONS
 def unique_grass_positions():
     mines = consts.TOTAL_GRASS
     while len(grass_positions) < mines:
-        row = random.randint(3, consts.MATRIX_ROWS - 1)
-        col = random.randint(0, consts.MATRIX_COLS - 1)
+        row = random.randint(3, consts.MATRIX_ROWS)
+        col = random.randint(0, consts.MATRIX_COLS)
         grass_positions.add((row, col))
     return grass_positions
 
@@ -45,6 +45,7 @@ def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
     mine_pos = put_mines_instead_grass()
     pixel_convert = ()
     true_mine_pos = set()
+    true_mine_pos.add((20,80))
     for mine in mine_pos:
         x = mine[0] * consts.CELL_SIZE
         y = mine[1] * consts.CELL_SIZE
