@@ -12,7 +12,7 @@ grass_positions = consts.GRASS_POSITIONS
 def unique_grass_positions():
     mines = consts.TOTAL_GRASS
     while len(grass_positions) < mines:
-        row = random.randint(0, consts.MATRIX_ROWS - 1)
+        row = random.randint(3, consts.MATRIX_ROWS - 1)
         col = random.randint(0, consts.MATRIX_COLS - 1)
         grass_positions.add((row, col))
     return grass_positions

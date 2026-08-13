@@ -14,18 +14,22 @@ def create():
 
 
 def move_soldier(event):
-
     if event == pygame.K_DOWN:
         if soldier_pos[1] + consts.SOLDIER_BOTTOM <= consts.SCREEN_HEIGHT:
             soldier_pos[1] += consts.SOLDIER_SPEED
+
     elif event == pygame.K_UP:
-        if soldier_pos[1] >= 0:
-            print(soldier_pos)
+        if soldier_pos[1] - 1 >= 0:
             soldier_pos[1] -= consts.SOLDIER_SPEED
+
     elif event == pygame.K_LEFT:
-        soldier_pos[0] -= consts.SOLDIER_SPEED
-    else:
-        soldier_pos[0] += consts.SOLDIER_SPEED
+        if soldier_pos[0] - 1 >= 0:
+            soldier_pos[0] -= consts.SOLDIER_SPEED
+
+    else: # soldier moves right
+        if soldier_pos[0] + consts.SOLDIER_SPEED * 2 < consts.SCREEN_WIDTH:
+            soldier_pos[0] += consts.SOLDIER_SPEED
+
     Screen.create_screen()
     Screen.screen.blit(soldier_image, soldier_pos)
 
