@@ -5,7 +5,7 @@ import random
 import Screen
 
 field = []
-mine = consts.BUSH_IMG
+grass = consts.BUSH_IMG
 grass_positions = consts.GRASS_POSITIONS
 
 
@@ -32,7 +32,7 @@ def create_field():
             x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
             y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
             if (row, col) in grass_pos:
-                field[row][col] = mine
+                field[row][col] = grass
 
 def put_mines_instead_grass():
     mine_positions = consts.MINE_POSITIONS
@@ -41,6 +41,16 @@ def put_mines_instead_grass():
         mine_positions.add(pos)
     return mine_positions
 
+
+def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
+    mine_pos = put_mines_instead_grass()
+    true_mine_pos = set()
+    for mine in mine_pos:
+        x = mine[0] * consts.CELL_SIZE
+        y = mine[1] * consts.CELL_SIZE
+        pixel_convert = (x, y)
+        true_mine_pos.add(pixel_convert)
+    return true_mine_pos
 
 def update_grass_mines():
     global field
