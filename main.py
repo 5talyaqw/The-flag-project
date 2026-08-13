@@ -1,6 +1,4 @@
 import sys
-
-import GameField
 import Screen
 import Soldier
 import consts
@@ -14,7 +12,7 @@ state = {
     "state" : consts.RUNNING_STATE,
     "is_soldier_moving" : False,
     "is_shown" : 0,
-    "night_vision" : False
+    "night_vision" : False,
 }
 
 KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
@@ -30,17 +28,18 @@ def main():
         handle_user()
         is_lose()
         is_win()
-        if state["state"] == 1:
+        if state["state"] == consts.RUNNING_STATE:
             pygame.display.update()
-            pass
-        elif state["state"] == 2:
+
+        elif state["state"] == consts.LOSE_STATE:
             Screen.draw_lose_message()
+            break
 
-
-        elif state["state"] == 3:
-
+        elif state["state"] == consts.WIN_STATE:
             Screen.draw_win_message()
+            break
     pygame.quit()
+    sys.exit()
 
 
 def handle_user():
@@ -49,27 +48,21 @@ def handle_user():
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
 
-        if state["state"] != consts.RUNNING_STATE:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:  # יציאה בלחיצה על Esc
-                    pygame.quit()
-                    sys.exit()
-        else:
-            if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
 
-                state["is_shown"] += 1
-                if state["is_shown"] == 1:
-                    update_text(state["is_shown"])
+            state["is_shown"] += 1
+            if state["is_shown"] == 1:
+                update_text(state["is_shown"])
 
-                if event.key in KEYS:
-                    if not state["night_vision"]:
-                        Soldier.move_soldier(event.key)
+            if event.key in KEYS:
+                if not state["night_vision"]:
+                    Soldier.move_soldier(event.key)
 
-                elapsed_time = time.time() - start_cooldown
-                if event.key == pygame.K_RETURN and elapsed_time >= consts.COOLDOWN:
-                    night_vision()
-                    start_cooldown = time.time()
-                pygame.event.clear()
+            elapsed_time = time.time() - start_cooldown
+            if event.key == pygame.K_RETURN and elapsed_time >= consts.COOLDOWN:
+                night_vision()
+                start_cooldown = time.time()
+            pygame.event.clear()
 
 
 def night_vision():

@@ -1,3 +1,5 @@
+import time
+
 import pygame
 import consts
 import GameField
@@ -5,7 +7,8 @@ import Soldier
 
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
-
+explosionImg = pygame.image.load(consts.EXPLOSION_IMG)
+explosionImg = pygame.transform.scale(explosionImg, (consts.SCREEN_WIDTH / 2, consts.SCREEN_HEIGHT))
 
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
@@ -67,6 +70,10 @@ def draw_mine_grass(item):
                 screen.blit(item_image, (x, y))
 
 
+
+def draw_explosion():
+    screen.blit(explosionImg, consts.EXPLOSION_LOCATION)
+
 def draw_soldier():
     Soldier.create()
 
@@ -80,20 +87,30 @@ def draw_flag():
     screen.blit(flag_img, (flag_x, flag_y))
 
 def draw_lose_message():
+    draw_explosion()
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
     soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
     soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
                                                                              consts.SCREEN_HEIGHT))
     screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
-    pygame.display.update()
+
 
 def draw_message(message, font_size, color, location):
     font = pygame.font.SysFont(consts.FONT_NAME, font_size)
     text_img = font.render(message, True, color)
     screen.blit(text_img, location)
 
+    pygame.display.update()
+    start_time = time.time()
+    freeze = True
+    while freeze:
+        elapsed_time = time.time() - start_time
+        if elapsed_time == consts.COOLDOWN:
+            freeze = False
+
+
+
 def draw_win_message():
     draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
                  consts.WIN_COLOR, consts.WIN_LOCATION)
-    pygame.display.update()
