@@ -33,3 +33,12 @@ def move_soldier(event):
     Screen.create_screen()
     Screen.screen.blit(soldier_image, soldier_pos)
 
+def is_on_mine(field, soldier_pos):
+    sol_pos = tuple(soldier_pos)
+    soldier_field_pos_x_y = ((soldier_pos[0] + consts.CELL_SIZE), (soldier_pos[1] + consts.CELL_SIZE))
+    mine_pos = GameField.get_mine_pixels()
+    if sol_pos in mine_pos:
+        return True
+    else:
+        return False
+

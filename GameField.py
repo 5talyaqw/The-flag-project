@@ -40,8 +40,16 @@ def put_mines_instead_grass():
         pos = random.choice(list(grass_positions))
         mine_positions.add(pos)
     return mine_positions
-
-
+def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
+    mine_pos = put_mines_instead_grass()
+    pixel_convert = ()
+    true_mine_pos = set()
+    for mine in mine_pos:
+        x = mine[0] * consts.CELL_SIZE
+        y = mine[1] * consts.CELL_SIZE
+        pixel_convert = (x, y)
+        true_mine_pos.add(pixel_convert)
+    return true_mine_pos
 def update_grass_mines():
     global field
     mine_pos = put_mines_instead_grass()
@@ -49,3 +57,7 @@ def update_grass_mines():
         for col in range(len(field[0]) - 1):
             if (row, col) in mine_pos:
                 field[row][col] = consts.MINE_IMG
+
+def draw_soldier(soldier_Image, soldier_pos):
+    global field
+    field[soldier_pos[0]][soldier_pos[1]] = soldier_Image

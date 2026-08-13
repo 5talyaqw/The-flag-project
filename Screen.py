@@ -12,7 +12,22 @@ def create_screen():
     pygame.display.set_caption('The flag game')
     GameField.create_empty_field()
     draw_mine_grass(consts.BUSH_IMG)
+    draw_flag()
+    draw_soldier()
 
+
+def draw_night_soldier():
+    soldier_night = consts.SOLIDER_NIGHT_IMG
+    soldier_night_image = pygame.image.load(soldier_night)
+    soldier_night_image = pygame.transform.scale(soldier_night_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
+    screen.blit(soldier_night_image, Soldier.soldier_pos)
+
+
+def night_vision_screen():
+    GameField.update_grass_mines()
+    update_screen_net(consts.MINE_IMG)
+    draw_night_soldier()
+    pygame.display.update()
 
 
 def update_text(disappear=False):
@@ -38,8 +53,6 @@ def update_screen_net(item):
     # horozinal lines
     for y in range(0, consts.SCREEN_HEIGHT, consts.CELL_SIZE):
         pygame.draw.line(screen, (4,95,11), (0,y),(consts.SCREEN_WIDTH, y))
-
-    draw_soldier()
     draw_mine_grass(item)
 
 def draw_mine_grass(item):
@@ -58,5 +71,27 @@ def draw_mine_grass(item):
 def draw_soldier():
     Soldier.create()
 
+def draw_flag():
+    flag_img = pygame.image.load(consts.FLAG_IMG).convert_alpha()
+    flag_img = pygame.transform.scale(flag_img, (consts.FLAG_WIDTH, consts.FLAG_HEIGHT))
 
+    flag_x =(len(GameField.field[0]) - 1) * consts.CELL_SIZE - consts.FLAG_MARGIN_X
+    flag_y = (len(GameField.field) - 1) * consts.CELL_SIZE - consts.FLAG_MARGIN_Y
 
+    screen.blit(flag_img, (flag_x, flag_y))
+
+def draw_lose_message():
+    draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
+                 consts.LOSE_COLOR, consts.LOSE_LOCATION)
+    soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
+    soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
+                                                                             consts.SCREEN_HEIGHT))
+    screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+def draw_message(message, font_size, color, location):
+    font = pygame.font.SysFont(consts.FONT_NAME, font_size)
+    text_img = font.render(message, True, color)
+    screen.blit(text_img, location)
+
+def draw_win_message():
+    draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
+                 consts.WIN_COLOR, consts.WIN_LOCATION)
