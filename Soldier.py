@@ -20,4 +20,8 @@ def split_soldier(soldier_image):
     body_rect = pygame.Rect(0, 110, width, 512 - 110)
     body = soldier_image.subsurface(body_rect)
 def create():
-    Screen.screen.blit(soldier_image, (0, 0))
+    # Screen.screen.blit(soldier_image, (0, 0))
+
+    soldier_rect = soldier_image.get_rect()
+    soldier_rect.midbottom = (0, 110)
+    Screen.screen.blit(soldier_image, soldier_rect)
