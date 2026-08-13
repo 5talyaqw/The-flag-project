@@ -1,12 +1,10 @@
 import Screen
 import Soldier
 import consts
-import GameField
 import pygame
 import time
 
 from Screen import update_text
-from Soldier import soldier
 
 state = {
     "is_window_open": True,
@@ -17,6 +15,7 @@ state = {
 }
 
 KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
+start_cooldown = 0.0
 
 def main():
     pygame.init()
@@ -29,6 +28,7 @@ def main():
     pygame.quit()
 
 def handle_user():
+    global start_cooldown
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -42,13 +42,15 @@ def handle_user():
                 update_text(state["is_shown"])
 
             if event.key in KEYS:
-                if not state["night_vision"]:
-                    print(state["night_vision"])
-                    Soldier.move_soldier(event.key)
+                print(state["night_vision"])
+                Soldier.move_soldier(event.key)
 
-
-            if event.key == pygame.K_RETURN:
+            elapsed_time = time.time() - start_cooldown
+            if event.key == pygame.K_RETURN and elapsed_time >= consts.COOLDOWN:
                 night_vision()
+                start_cooldown = time.time()
+
+
 
 
 
@@ -57,13 +59,11 @@ def night_vision():
 
     Screen.night_vision_screen()
 
-
     allocated_time = 1  # 1 second wait
     start = time.time()
 
     while state["night_vision"]:
         elapsed_time = time.time() - start
-
         if elapsed_time >= allocated_time:
             Screen.create_screen()
             state["night_vision"] = False
