@@ -6,6 +6,7 @@ import Soldier
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
 
+
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
@@ -61,9 +62,8 @@ def draw_mine_grass(item):
             if field[row][col] == item:
                 item_image = pygame.image.load(field[row][col]).convert_alpha()
                 item_image = pygame.transform.scale(item_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
-
-                x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-                y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
+                x = col * consts.CELL_SIZE
+                y = row * consts.CELL_SIZE
                 screen.blit(item_image, (x, y))
 
 
@@ -82,6 +82,11 @@ def draw_flag():
 def draw_lose_message():
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
+    soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
+    soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
+                                                                             consts.SCREEN_HEIGHT))
+    screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+    pygame.display.update()
 
 def draw_message(message, font_size, color, location):
     font = pygame.font.SysFont(consts.FONT_NAME, font_size)
@@ -91,3 +96,4 @@ def draw_message(message, font_size, color, location):
 def draw_win_message():
     draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
                  consts.WIN_COLOR, consts.WIN_LOCATION)
+    pygame.display.update()
