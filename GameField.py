@@ -46,8 +46,8 @@ def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
     mine_pos = put_mines_instead_grass()
     true_mine_pos = set()
     for mine in mine_pos:
-        x = mine[0] * consts.CELL_SIZE
-        y = mine[1] * consts.CELL_SIZE
+        x = (mine[1] * consts.CELL_SIZE) + consts.MINE_WIDTH / 2
+        y = (mine[0] * consts.CELL_SIZE) + consts.MINE_HEIGHT
         pixel_convert = (x, y)
         true_mine_pos.add(pixel_convert)
     return true_mine_pos

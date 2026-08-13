@@ -63,8 +63,8 @@ def draw_mine_grass(item):
                 item_image = pygame.image.load(field[row][col]).convert_alpha()
                 item_image = pygame.transform.scale(item_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
 
-                x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-                y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
+                x = col * consts.CELL_SIZE
+                y = row * consts.CELL_SIZE
                 screen.blit(item_image, (x, y))
 
 

@@ -6,6 +6,7 @@ import Screen
 soldier = consts.SOLIDER_IMG
 soldier_image = pygame.image.load(soldier)
 soldier_image = pygame.transform.scale(soldier_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
+soldier_rect = soldier_image.get_rect()
 soldier_pos = [0,0]
 
 
@@ -34,14 +35,13 @@ def move_soldier(event):
     Screen.screen.blit(soldier_image, soldier_pos)
 
 def is_on_mine():
-    soldier_pos_bottom = (soldier_pos[0] + consts.SOLDIER_WIDTH, soldier_pos[1] + consts.SOLDIER_BOTTOM)
-    print(soldier_pos_bottom)
+    soldier_pos_mid_bottom = soldier_rect.midbottom
+    soldier_pos_bottom = (soldier_pos_mid_bottom[0] + soldier_pos[0],soldier_pos_mid_bottom[1] + soldier_pos[1])
+
     mine_pos = GameField.get_mine_pixels()
-    print(mine_pos)
     if soldier_pos_bottom in mine_pos:
         return True
-    else:
-        return False
+    return False
 
 def is_on_flag():
     flag_pos = get_flag_pos()
