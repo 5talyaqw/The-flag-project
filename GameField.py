@@ -14,6 +14,9 @@ def unique_grass_positions():
     while len(grass_positions) < mines:
         row = random.randint(3, consts.MATRIX_ROWS - 1)
         col = random.randint(0, consts.MATRIX_COLS - 1)
+        while field[row][col] == "flag" and ([col * consts.CELL_SIZE ,row * consts.CELL_SIZE] == Soldier.soldier_pos):
+            row = random.randint(3, consts.MATRIX_ROWS)
+            col = random.randint(0, consts.MATRIX_COLS)
         grass_positions.add((row, col))
     return grass_positions
 
@@ -21,6 +24,7 @@ def unique_grass_positions():
 def create_empty_field():
     global field
     field = [[0 for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
+    put_flag_in_matrix()
     create_field()
 
 
@@ -29,8 +33,8 @@ def create_field():
     grass_pos = unique_grass_positions()
     for row in range(consts.MATRIX_ROWS):
         for col in range(consts.MATRIX_COLS):
-            x = col * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
-            y = row * (consts.CELL_SIZE + consts.MARGIN) + consts.MARGIN
+            x = col * consts.CELL_SIZE
+            y = row * consts.CELL_SIZE
             if (row, col) in grass_pos:
                 field[row][col] = grass
 
@@ -41,6 +45,15 @@ def put_mines_instead_grass():
         mine_positions.add(pos)
     return mine_positions
 
+def put_flag_in_matrix():
+    for row in range(len(field) - 1):
+        if consts.MATRIX_ROWS - 1 - row <= 3:
+            for i in range(4):
+                field[row][consts.MATRIX_COLS - i - 1] = "flag"
+        for col in range(len(field[0]) - 1):
+            if consts.MATRIX_COLS - 1 - col == 4:
+                for i in range(4):
+                    field[consts.MATRIX_ROWS - 1 - i][col] = "flag"
 
 def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
     mine_pos = put_mines_instead_grass()

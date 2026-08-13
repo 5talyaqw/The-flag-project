@@ -45,7 +45,7 @@ def is_on_mine():
 
 def is_on_flag():
     flag_pos = get_flag_pos()
-    if soldier_pos[0] + consts.SOLDIER_SPEED >= flag_pos[0] and soldier_pos[1] + consts.SOLDIER_SPEED >= flag_pos[1]:
+    if soldier_pos[0] + consts.SOLDIER_WIDTH >= flag_pos[0] and soldier_pos[1] + consts.SOLDIER_HEIGHT >= flag_pos[1]:
         return True
     return False
 
