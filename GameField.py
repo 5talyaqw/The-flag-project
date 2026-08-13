@@ -40,6 +40,7 @@ def put_mines_instead_grass():
         pos = random.choice(list(grass_positions))
         mine_positions.add(pos)
     return mine_positions
+
 def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
     mine_pos = put_mines_instead_grass()
     pixel_convert = ()
