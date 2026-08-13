@@ -11,8 +11,7 @@ soldier_pos = [0,0]
 soldier_rect = soldier_image.get_rect()
 soldier_injury = consts.INJURY_IMG
 soldierINJURYYYY_image = pygame.image.load(soldier_injury)
-soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
-                                                                             consts.SCREEN_HEIGHT))
+soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
 explosionImg = pygame.image.load(consts.EXPLOSION_IMG).convert_alpha()
 def create():
     Screen.screen.blit(soldier_image, soldier_pos)
@@ -64,4 +63,4 @@ def get_flag_pos():
     return [flag_x,flag_y]
 
 def injured_soldier():
-    Screen.screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+    Screen.screen.blit(soldierINJURYYYY_image, ((soldier_pos[0]) , (soldier_pos[1])))

@@ -7,7 +7,6 @@ import consts
 import pygame
 import time
 pygame.mixer.init()
-from Screen import update_text
 
 state = {
     "is_window_open": True,
@@ -23,7 +22,7 @@ start_cooldown = 0.0
 def main():
     pygame.init()
     Screen.create_screen()
-    update_text()
+    Screen.update_text()
 
     while state["is_window_open"]:
 
@@ -59,7 +58,7 @@ def handle_user():
 
                 state["is_shown"] += 1
                 if state["is_shown"] == 1:
-                    update_text(state["is_shown"])
+                    Screen.update_text(state["is_shown"])
 
                 if event.key in KEYS:
                     if not state["night_vision"]:
@@ -86,7 +85,6 @@ def night_vision():
 def is_lose():
     if Soldier.is_on_mine():
         state["state"] = consts.LOSE_STATE
-
 def is_win():
     if Soldier.is_on_flag():
         state["state"] = consts.WIN_STATE

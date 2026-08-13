@@ -2,6 +2,7 @@ import pygame
 import consts
 import GameField
 import Soldier
+import main
 
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
@@ -68,6 +69,8 @@ def draw_mine_grass(item):
 
 
 def draw_soldier():
+    if main.is_lose():
+        Soldier.injured_soldier()
     Soldier.create()
 
 def draw_flag():
