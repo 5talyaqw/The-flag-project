@@ -1,7 +1,7 @@
 SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\soldier.png"
 BUSH_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\grass.png"
 MINE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\mine.png"
-SOLIDER_NIGHT_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider_night.png"
+SOLIDER_NIGHT_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\soldier_nigth.png"
 FLAG_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\flag.png"
 EXPLOSION_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\explotion.png"
 INJURY_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\injury.png"
@@ -29,8 +29,10 @@ TOTAL_MINES = 10
 MINE_POSITIONS = set()
 GRASS_POSITIONS = set()
 
-FLAG_HEIGHT = 4
-FLAG_WIDTH = 3
+FLAG_HEIGHT = 60
+FLAG_WIDTH = 50
+FLAG_MARGIN_X = 30
+FLAG_MARGIN_Y = 45
 MINE_HEIGHT = 20
 MINE_WIDTH = 40
 BACKGROUND_COLOR = (4, 95, 11)

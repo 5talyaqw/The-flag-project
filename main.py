@@ -6,13 +6,14 @@ import pygame
 import time
 
 from Screen import update_text
+from Soldier import soldier
 
 state = {
     "is_window_open": True,
     "state" : consts.RUNNING_STATE,
     "is_soldier_moving" : False,
     "is_shown" : 0,
-    "night_vision" : True
+    "night_vision" : False
 }
 
 KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
@@ -21,10 +22,9 @@ def main():
     pygame.init()
     Screen.create_screen()
     update_text()
-    while state["is_window_open"]:
 
+    while state["is_window_open"]:
         handle_user()
-        Screen.draw_soldier()
         pygame.display.update()
     pygame.quit()
 
@@ -42,21 +42,24 @@ def handle_user():
                 update_text(state["is_shown"])
 
             if event.key in KEYS:
-                Soldier.move_soldier(event.key)
+                if not state["night_vision"]:
+                    print(state["night_vision"])
+                    Soldier.move_soldier(event.key)
+
 
             if event.key == pygame.K_RETURN:
                 night_vision()
 
 
+
 def night_vision():
     state["night_vision"] = True
-    GameField.update_grass_mines()
+
+    Screen.night_vision_screen()
+
 
     allocated_time = 1  # 1 second wait
     start = time.time()
-
-    Screen.update_screen_net(consts.MINE_IMG)
-    pygame.display.update()
 
     while state["night_vision"]:
         elapsed_time = time.time() - start
