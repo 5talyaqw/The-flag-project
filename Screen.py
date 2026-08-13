@@ -18,6 +18,7 @@ def create_screen():
     draw_flag()
     draw_soldier()
 
+pass
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
