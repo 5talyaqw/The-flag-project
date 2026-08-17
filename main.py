@@ -1,5 +1,5 @@
 import sys
-
+import teleport
 import GameField
 import database
 import Screen
@@ -32,6 +32,8 @@ def main():
         handle_user()
         is_lose()
         is_win()
+        if teleport.is_on_tp(Soldier.soldier_pos, teleport.tplist):
+            teleport.random_teleport(Soldier.soldier_pos)
         if state["state"] == 1:
             pygame.display.update()
             pass
