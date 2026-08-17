@@ -8,7 +8,6 @@ INJURY_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\in
 DINO_SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider (2).png"
 SNAKE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\snake.png"
 
-
 MARGIN = 2
 MATRIX_ROWS = 25
 MATRIX_COLS = 50
@@ -26,6 +25,7 @@ SOLDIER_BOTTOM = 100
 
 TOTAL_GRASS = 20
 TOTAL_MINES = 10
+
 MINE_POSITIONS = set()
 GRASS_POSITIONS = set()
 

@@ -7,7 +7,6 @@ pygame.mixer.init()
 soldier = consts.SOLIDER_IMG
 soldier_image = pygame.image.load(soldier)
 soldier_image = pygame.transform.scale(soldier_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
-soldier_rect = soldier_image.get_rect()
 
 soldier_pos = [0,0]
 soldier_rect = soldier_image.get_rect()
@@ -44,12 +43,10 @@ def is_on_mine():
     soldier_pos_mid_bottom = soldier_rect.midbottom
     soldier_pos_bottom = (soldier_pos_mid_bottom[0] + soldier_pos[0],soldier_pos_mid_bottom[1] + soldier_pos[1])
     mine_pos = GameField.get_mine_pixels()
-    mine_pos_subscriptable = list(mine_pos)
     if soldier_pos_bottom in mine_pos:
         explosion = pygame.mixer.Sound("EXPLOSIONN.wav")
         explosion.play()
         injured_soldier()
-        GameField.field[6][7] = explosionImg
         return True
     return False
 

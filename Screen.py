@@ -2,6 +2,7 @@ import pygame
 import consts
 import GameField
 import Soldier
+import database
 import main
 import time
 pygame.init()
@@ -12,11 +13,11 @@ explosionImg = pygame.transform.scale(explosionImg, (consts.SCREEN_WIDTH / 2, co
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
-    GameField.create_empty_field()
+    if len(GameField.field) == 0:
+        GameField.create_empty_field()
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
     draw_soldier()
-
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
@@ -30,7 +31,6 @@ def night_vision_screen():
     update_screen_net(consts.MINE_IMG)
     draw_night_soldier()
     pygame.display.update()
-
 
 def update_text(disappear=False):
     # set text on the top left
@@ -58,7 +58,7 @@ def update_screen_net(item):
     draw_mine_grass(item)
 
 def draw_mine_grass(item):
-    field = GameField.field.copy()
+    field = GameField.field
     for row in range(len(field) - 1):
         for col in range(len(field[0]) -1):
             if field[row][col] == item:

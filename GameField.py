@@ -43,6 +43,7 @@ def put_mines_instead_grass():
         mine_positions.add(pos)
     return mine_positions
 
+
 def put_flag_in_matrix():
     for row in range(consts.MATRIX_ROWS - 3,len(field)):
         for i in range(4):
@@ -66,3 +67,4 @@ def update_grass_mines():
         for col in range(len(field[0]) - 1):
             if (row, col) in mine_pos:
                 field[row][col] = consts.MINE_IMG
+

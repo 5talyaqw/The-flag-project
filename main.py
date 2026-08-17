@@ -1,4 +1,6 @@
 import sys
+
+import GameField
 import database
 import Screen
 import Soldier
@@ -38,7 +40,6 @@ def main():
             break
 
         elif state["state"] == 3:
-
             Screen.draw_win_message()
             break
     pygame.quit()
@@ -81,6 +82,8 @@ def handle_user():
                     database.save(NUMBERS.index(event.key))
                 else:
                     database.load(NUMBERS.index(event.key))
+                    Screen.create_screen()
+
 
 
 def night_vision():
