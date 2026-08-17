@@ -3,19 +3,22 @@ import pygame
 import consts
 import Screen
 pygame.mixer.init()
+
 soldier = consts.SOLIDER_IMG
 soldier_image = pygame.image.load(soldier)
 soldier_image = pygame.transform.scale(soldier_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
 soldier_rect = soldier_image.get_rect()
+
 soldier_pos = [0,0]
 soldier_rect = soldier_image.get_rect()
+
 soldier_injury = consts.INJURY_IMG
 soldierINJURYYYY_image = pygame.image.load(soldier_injury)
 soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
 explosionImg = pygame.image.load(consts.EXPLOSION_IMG).convert_alpha()
-def create():
-    Screen.screen.blit(soldier_image, soldier_pos)
 
+def create(image, position):
+    Screen.screen.blit(image, position)
 
 def move_soldier(event):
     if event == pygame.K_DOWN:
@@ -52,7 +55,9 @@ def is_on_mine():
 
 def is_on_flag():
     flag_pos = get_flag_pos()
-    if soldier_pos[0] + consts.SOLDIER_WIDTH >= flag_pos[0] and soldier_pos[1] + consts.SOLDIER_HEIGHT >= flag_pos[1]:
+    bottom_right = [soldier_pos[0] + consts.SOLDIER_WIDTH, soldier_pos[1] + consts.SOLDIER_HEIGHT]
+    top_right = [soldier_pos[0] + consts.SOLDIER_WIDTH, soldier_pos[1]]
+    if (bottom_right[0] >= flag_pos[0] and bottom_right[1] >= flag_pos[1]) and (top_right[1] + 20 >= flag_pos[1]):
         return True
     return False
 

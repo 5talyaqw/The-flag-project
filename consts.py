@@ -1,12 +1,12 @@
-SOLIDER_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\soldier.png"
-BUSH_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\grass.png"
-MINE_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\mine.png"
-SOLIDER_NIGHT_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\solider_night.png"
-FLAG_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\flag.png"
-EXPLOSION_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\explotion.png"
-INJURY_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\injury.png"
-DINO_SOLIDER_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\solider (2).png"
-SNAKE_IMG = "C:\\Users\\97254\\PycharmProjects\\The-flag-project\\flag_images\\snake.png"
+SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\soldier.png"
+BUSH_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\grass.png"
+MINE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\mine.png"
+SOLIDER_NIGHT_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider_night.png"
+FLAG_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\flag.png"
+EXPLOSION_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\explotion.png"
+INJURY_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\injury.png"
+DINO_SOLIDER_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\solider (2).png"
+SNAKE_IMG = "C:\\Users\\jbt\\PycharmProjects\\The-flag-project\\flag_images\\snake.png"
 
 
 MARGIN = 2
@@ -54,6 +54,8 @@ WIN_COLOR = (255, 149, 169)
 WIN_LOCATION = \
     (0.2 * SCREEN_WIDTH, SCREEN_HEIGHT / 2 - (WIN_FONT_SIZE / 2))
 EXPLOSION_LOCATION = (LOSE_LOCATION[0], LOSE_LOCATION[1] -100)
+
+
 
 WAIT_NIGHT = 1
 COOLDOWN = 3.00

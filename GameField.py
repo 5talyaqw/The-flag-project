@@ -1,13 +1,10 @@
-import pygame
 import consts
 import Soldier
 import random
-import Screen
 
 field = []
 grass = consts.BUSH_IMG
 grass_positions = consts.GRASS_POSITIONS
-
 
 def unique_grass_positions():
     mines = consts.TOTAL_GRASS
@@ -46,14 +43,10 @@ def put_mines_instead_grass():
     return mine_positions
 
 def put_flag_in_matrix():
-    for row in range(len(field) - 1):
-        if consts.MATRIX_ROWS - 1 - row <= 3:
-            for i in range(4):
-                field[row][consts.MATRIX_COLS - i - 1] = "flag"
-        for col in range(len(field[0]) - 1):
-            if consts.MATRIX_COLS - 1 - col == 4:
-                for i in range(4):
-                    field[consts.MATRIX_ROWS - 1 - i][col] = "flag"
+    for row in range(consts.MATRIX_ROWS - 3,len(field)):
+        for i in range(4):
+            field[row][consts.MATRIX_COLS - i - 1] = "flag"
+
 
 def get_mine_pixels(): # gets mine positions, returns the mine pixel positions
     mine_pos = put_mines_instead_grass()

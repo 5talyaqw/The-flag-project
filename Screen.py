@@ -72,7 +72,7 @@ def draw_mine_grass(item):
 def draw_soldier():
     if main.is_lose():
         Soldier.injured_soldier()
-    Soldier.create()
+    Soldier.create(Soldier.soldier_image, Soldier.soldier_pos)
 
 def draw_explosion():
     screen.blit(explosionImg, consts.EXPLOSION_LOCATION)

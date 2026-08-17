@@ -1,6 +1,5 @@
 import sys
-
-import GameField
+import database
 import Screen
 import Soldier
 import consts
@@ -17,7 +16,9 @@ state = {
 }
 
 KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
+NUMBERS = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]
 start_cooldown = 0.0
+hold_key = 0.0
 
 def main():
     pygame.init()
@@ -45,6 +46,8 @@ def main():
 
 def handle_user():
     global start_cooldown
+    global hold_key
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
@@ -56,6 +59,7 @@ def handle_user():
                     sys.exit()
         else:
             if event.type == pygame.KEYDOWN:
+                hold_key = time.time()
 
                 state["is_shown"] += 1
                 if state["is_shown"] == 1:
@@ -69,7 +73,14 @@ def handle_user():
                 if event.key == pygame.K_RETURN and elapsed_time >= consts.COOLDOWN:
                     night_vision()
                     start_cooldown = time.time()
-                pygame.event.clear()
+                    pygame.event.clear()
+
+            if event.type == pygame.KEYUP and event.key in NUMBERS:
+                end_time = time.time() - hold_key
+                if end_time <= 1:
+                    database.save(NUMBERS.index(event.key))
+                else:
+                    database.load(NUMBERS.index(event.key))
 
 
 def night_vision():
