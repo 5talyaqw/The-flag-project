@@ -45,7 +45,7 @@ def main():
             Screen.draw_win_message()
             break
     pygame.quit()
-
+pass
 
 def handle_user():
     global start_cooldown
