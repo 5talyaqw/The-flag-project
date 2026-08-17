@@ -6,6 +6,7 @@ field = []
 grass = consts.BUSH_IMG
 grass_positions = consts.GRASS_POSITIONS
 
+
 def unique_grass_positions():
     mines = consts.TOTAL_GRASS
     while len(grass_positions) < mines:
