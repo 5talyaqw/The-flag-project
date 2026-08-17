@@ -10,8 +10,8 @@ soldier_rect = soldier_image.get_rect()
 soldier_pos = [0,0]
 
 
-def create():
-    Screen.screen.blit(soldier_image, soldier_pos)
+def create(image, position):
+    Screen.screen.blit(image, position)
 
 
 def move_soldier(event):

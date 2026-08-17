@@ -68,7 +68,7 @@ def draw_mine_grass(item):
 
 
 def draw_soldier():
-    Soldier.create()
+    Soldier.create(Soldier.soldier_image, Soldier.soldier_pos)
 
 def draw_flag():
     flag_img = pygame.image.load(consts.FLAG_IMG).convert_alpha()
