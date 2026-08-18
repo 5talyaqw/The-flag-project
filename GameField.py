@@ -1,6 +1,11 @@
+
 import consts
 import Soldier
 import random
+
+import database
+import main
+import pygame
 
 field = []
 grass = consts.BUSH_IMG
@@ -21,10 +26,15 @@ def unique_grass_positions():
 
 def create_empty_field():
     global field
-    field = [[0 for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
+    field = [["free" for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
     put_flag_in_matrix()
     create_field()
 
+def createField_by_save():
+    global field
+    field = [["free" for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
+    put_flag_in_matrix()
+    field = database.load(main.save_number)[0]
 
 def create_field():
     global field

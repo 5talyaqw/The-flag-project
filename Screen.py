@@ -5,6 +5,7 @@ import Soldier
 import database
 import main
 import time
+import teleport
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
 explosionImg = pygame.image.load(consts.EXPLOSION_IMG)
@@ -13,11 +14,19 @@ explosionImg = pygame.transform.scale(explosionImg, (consts.SCREEN_WIDTH / 2, co
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
-    if len(GameField.field) == 0:
-        GameField.create_empty_field()
+    # if len(GameField.field) == 0:
+    GameField.create_empty_field()
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
-    draw_soldier()
+    draw_soldier(Soldier.soldier_pos)
+
+def create_save_screen():
+    screen.fill(consts.BACKGROUND_COLOR)
+    pygame.display.set_caption('The flag game')
+    GameField.createField_by_save()
+    draw_mine_grass(consts.BUSH_IMG)
+    draw_flag()
+    draw_soldier(database.load(main.save_number)[1])
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
@@ -69,10 +78,10 @@ def draw_mine_grass(item):
                 screen.blit(item_image, (x, y))
 
 
-def draw_soldier():
+def draw_soldier(position):
     if main.is_lose():
         Soldier.injured_soldier()
-    Soldier.create(Soldier.soldier_image, Soldier.soldier_pos)
+    Soldier.create(Soldier.soldier_image, position)
 
 def draw_explosion():
     screen.blit(explosionImg, consts.EXPLOSION_LOCATION)

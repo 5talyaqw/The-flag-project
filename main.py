@@ -1,4 +1,7 @@
 import sys
+
+from pygame.constants import K_RETURN
+
 import teleport
 import GameField
 import database
@@ -21,8 +24,10 @@ KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
 NUMBERS = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]
 start_cooldown = 0.0
 hold_key = 0.0
-
+save_number = 0
+teleport_cooldown = 0.0
 def main():
+    global teleport_cooldown
     pygame.init()
     Screen.create_screen()
     Screen.update_text()
@@ -32,20 +37,19 @@ def main():
         handle_user()
         is_lose()
         is_win()
-        if teleport.is_on_tp(Soldier.soldier_pos, teleport.tplist):
-            teleport.random_teleport(Soldier.soldier_pos)
-        if state["state"] == 1:
+
+        if state["state"] == consts.RUNNING_STATE:
             pygame.display.update()
             pass
-        elif state["state"] == 2:
+        elif state["state"] == consts.LOSE_STATE:
             Screen.draw_lose_message()
             break
 
-        elif state["state"] == 3:
+
+        elif state["state"] == consts.WIN_STATE:
             Screen.draw_win_message()
             break
     pygame.quit()
-pass
 
 def handle_user():
     global start_cooldown
@@ -80,11 +84,12 @@ def handle_user():
 
             if event.type == pygame.KEYUP and event.key in NUMBERS:
                 end_time = time.time() - hold_key
+                save_number = NUMBERS.index(event.key)
                 if end_time <= 1:
-                    database.save(NUMBERS.index(event.key))
+                    database.save(save_number)
                 else:
-                    database.load(NUMBERS.index(event.key))
-                    Screen.create_screen()
+                    database.load(save_number)
+                    Screen.create_save_screen()
 
 
 

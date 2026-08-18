@@ -20,30 +20,31 @@ def move_soldier(event):
     if event == pygame.K_DOWN:
         if soldier_pos[1] + consts.SOLDIER_BOTTOM <= consts.SCREEN_HEIGHT:
             soldier_pos[1] += consts.SOLDIER_SPEED
-
+            print("down")
     elif event == pygame.K_UP:
         if soldier_pos[1] - 1 >= 0:
             soldier_pos[1] -= consts.SOLDIER_SPEED
-
+            print("up")
     elif event == pygame.K_LEFT:
         if soldier_pos[0] - 1 >= 0:
             soldier_pos[0] -= consts.SOLDIER_SPEED
-
+            print("left")
     else: # soldier moves right
         if soldier_pos[0] + consts.SOLDIER_WIDTH < consts.SCREEN_WIDTH:
             soldier_pos[0] += consts.SOLDIER_SPEED
-
+            print("right")
     Screen.create_screen()
     Screen.screen.blit(soldier_image, soldier_pos)
-def soldier_legs_position(soldier_position):
+
+def soldier_legs_position():
     soldier_rect = soldier_image.get_rect()
     soldier_pos_mid_bottom = soldier_rect.midbottom
-    soldier_position_bottom = (soldier_pos_mid_bottom[0] + soldier_position[0], soldier_pos_mid_bottom[1] + soldier_position[1])
+    soldier_position_bottom = (soldier_pos_mid_bottom[0] + soldier_pos[0], soldier_pos_mid_bottom[1] + soldier_pos[1])
     return soldier_position_bottom
 
 
 def is_on_mine():
-    soldier_pos_bottom = soldier_legs_position(soldier_pos)
+    soldier_pos_bottom = soldier_legs_position()
     mine_pos = GameField.get_mine_pixels()
     if soldier_pos_bottom in mine_pos:
         explosion = pygame.mixer.Sound("EXPLOSIONN.wav")
