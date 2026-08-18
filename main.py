@@ -27,13 +27,12 @@ def main():
     Screen.create_screen()
     Screen.update_text()
 
-    while state["is_window_open"]:
 
+    while state["is_window_open"]:
         handle_user()
         is_lose()
         is_win()
-        if teleport.is_on_tp(Soldier.soldier_pos, teleport.tplist):
-            teleport.random_teleport(Soldier.soldier_pos)
+
         if state["state"] == 1:
             pygame.display.update()
             pass
@@ -52,6 +51,7 @@ def handle_user():
     global hold_key
 
     for event in pygame.event.get():
+        teleport.is_on_tp()
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
 

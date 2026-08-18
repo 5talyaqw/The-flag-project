@@ -2,9 +2,10 @@ import pygame
 import consts
 import GameField
 import Soldier
-import database
+import teleport
 import main
 import time
+
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
 explosionImg = pygame.image.load(consts.EXPLOSION_IMG)
@@ -18,6 +19,8 @@ def create_screen():
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
     draw_soldier()
+    teleport.create_teleports()
+    draw_portal()
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
@@ -113,3 +116,13 @@ def draw_win_message():
     draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
                  consts.WIN_COLOR, consts.WIN_LOCATION)
     pygame.display.update()
+
+def draw_portal():
+    for row in range(consts.MATRIX_ROWS):
+        for col in range(consts.MATRIX_COLS):
+            if GameField.field[row][col] == consts.TELEPORT_IMG:
+                item_image = pygame.image.load(GameField.field[row][col]).convert_alpha()
+                item_image = pygame.transform.scale(item_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
+                x = col * consts.CELL_SIZE
+                y = row * consts.CELL_SIZE
+                screen.blit(item_image, (x, y))
