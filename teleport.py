@@ -28,11 +28,10 @@ def is_on_tp():
     global pixel_teleport_mid_pos
     legs = Soldier.soldier_legs_position()
     if legs in pixel_teleport_mid_pos:
-        random_teleport()
+        return True
+    return False
 
 def random_teleport():
-    print(tplist)
-    print(pixel_teleport_mid_pos)
     soldier_legs = random.choice(pixel_teleport_mid_pos)
     Soldier.soldier_pos = [soldier_legs[0] - consts.MINE_WIDTH /2, soldier_legs[1] - consts.SOLDIER_HEIGHT]
     Screen.create_screen()

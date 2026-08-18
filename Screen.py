@@ -18,9 +18,10 @@ def create_screen():
         GameField.create_empty_field()
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
-    draw_soldier()
     teleport.create_teleports()
     draw_portal()
+    draw_soldier()
+
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG

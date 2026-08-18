@@ -21,8 +21,10 @@ KEYS = [pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN]
 NUMBERS = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]
 start_cooldown = 0.0
 hold_key = 0.0
+teleport_cooldown = 0.0
 
 def main():
+    global teleport_cooldown
     pygame.init()
     Screen.create_screen()
     Screen.update_text()
@@ -33,14 +35,20 @@ def main():
         is_lose()
         is_win()
 
-        if state["state"] == 1:
+        # cooldown for teleporting so the player doesnt enter a loop
+        elapsed_time = time.time() - teleport_cooldown
+        if teleport.is_on_tp() and elapsed_time >= consts.TELEPORT_COOLDOWN:
+            teleport_cooldown = time.time()
+            teleport.random_teleport()
+
+        if state["state"] == consts.RUNNING_STATE:
             pygame.display.update()
             pass
-        elif state["state"] == 2:
+        elif state["state"] == consts.LOSE_STATE:
             Screen.draw_lose_message()
             break
 
-        elif state["state"] == 3:
+        elif state["state"] == consts.WIN_STATE:
             Screen.draw_win_message()
             break
     pygame.quit()
@@ -51,7 +59,7 @@ def handle_user():
     global hold_key
 
     for event in pygame.event.get():
-        teleport.is_on_tp()
+
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
 
