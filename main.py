@@ -15,6 +15,7 @@ state = {
     "state" : consts.RUNNING_STATE,
     "is_soldier_moving" : False,
     "is_shown" : 0,
+    "is_loaded": False,
     "night_vision" : False
 }
 
@@ -25,15 +26,16 @@ hold_key = 0.0
 teleport_cooldown = 0.0
 save_number = 0
 
+
 def main():
     global teleport_cooldown
     pygame.init()
-    Screen.create_screen()
+    Screen.create_screen(state["is_loaded"])
     Screen.update_text()
 
     while state["is_window_open"]:
         guard.move_guard()
-        Screen.create_screen()
+        Screen.create_screen(state["is_loaded"])
         handle_user()
         is_lose()
         is_win()
@@ -56,14 +58,13 @@ def main():
             break
 
     pygame.quit()
-pass
 
 def handle_user():
     global start_cooldown
     global hold_key
     global save_number
+    global state
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
 
@@ -96,9 +97,12 @@ def handle_user():
                 if end_time <= 1:
                     database.save(save_number)
                 else:
-                    database.load(save_number)
-                    Screen.create_save_screen()
-
+                    loadingField = database.load(save_number)
+                    if len(loadingField) == 0:
+                        continue
+                    else:
+                        state["is_loaded"] = True
+                        Screen.create_screen(True)
 
 
 def night_vision():
@@ -109,7 +113,7 @@ def night_vision():
     while state["night_vision"]:
         elapsed_time = time.time() - start
         if elapsed_time >= consts.WAIT_NIGHT:
-            Screen.create_screen()
+            Screen.create_screen(state["is_loaded"])
             state["night_vision"] = False
 
 def is_lose():

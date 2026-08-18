@@ -2,6 +2,8 @@ import GameField
 import pygame
 import consts
 import Screen
+import main
+
 pygame.mixer.init()
 
 soldier = consts.SOLIDER_IMG
@@ -13,7 +15,7 @@ soldier_pos = [0,0]
 soldier_injury = consts.INJURY_IMG
 soldierINJURYYYY_image = pygame.image.load(soldier_injury)
 soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
-explosionImg = pygame.image.load(consts.EXPLOSION_IMG).convert_alpha()
+explosionImg = pygame.image.load(consts.EXPLOSION_IMG)
 
 def create(image, position):
     Screen.screen.blit(image, position)
@@ -35,8 +37,7 @@ def move_soldier(event):
         if soldier_pos[0] + consts.SOLDIER_WIDTH < consts.SCREEN_WIDTH:
             soldier_pos[0] += consts.SOLDIER_SPEED
 
-    Screen.create_screen()
-    Screen.screen.blit(soldier_image, soldier_pos)
+
 
 def soldier_legs_position():
     soldier_pos_mid_bottom = soldier_rect.midbottom

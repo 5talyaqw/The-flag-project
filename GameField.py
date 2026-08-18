@@ -3,6 +3,7 @@ import Soldier
 import random
 import database
 import main
+import teleport
 
 field = []
 grass = consts.BUSH_IMG
@@ -26,12 +27,13 @@ def create_empty_field():
     field = [['free' for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
     put_flag_in_matrix()
     create_field()
+    put_teleports()
 
 def createField_by_save():
     global field
-    field = [["free" for col in range(consts.MATRIX_COLS)] for row in range(consts.MATRIX_ROWS)]
+    field = database.load(main.save_number)
     put_flag_in_matrix()
-    field = database.load(main.save_number)[0]
+    put_teleports()
 
 def create_field():
     global field
@@ -42,6 +44,12 @@ def create_field():
             y = row * consts.CELL_SIZE
             if (row, col) in grass_pos:
                 field[row][col] = grass
+
+def put_teleports():
+    global field
+    teleport.create_teleports()
+    for tp in teleport.tplist:
+        field[tp[0]][tp[1]] = consts.TELEPORT_IMG
 
 def put_mines_instead_grass():
     mine_positions = consts.MINE_POSITIONS

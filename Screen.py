@@ -3,37 +3,27 @@ import consts
 import GameField
 import Soldier
 import database
-import teleport
 import main
 import time
 import guard
 
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
-explosionImg = pygame.image.load(consts.EXPLOSION_IMG)
+explosionImg = pygame.image.load(consts.EXPLOSION_IMG).convert_alpha()
 explosionImg = pygame.transform.scale(explosionImg, (consts.SCREEN_WIDTH / 2, consts.SCREEN_HEIGHT))
 
-def create_screen():
+def create_screen(is_loaded):
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
-    GameField.create_empty_field()
+    if not is_loaded:
+        GameField.create_empty_field()
+    else:
+        GameField.createField_by_save()
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
-    teleport.create_teleports()
-    draw_portal()
+    draw_mine_grass(consts.TELEPORT_IMG)
     draw_soldier(Soldier.soldier_pos)
     draw_guard()
-
-def create_save_screen():
-    screen.fill(consts.BACKGROUND_COLOR)
-    pygame.display.set_caption('The flag game')
-    GameField.createField_by_save()
-    draw_mine_grass(consts.BUSH_IMG)
-    draw_flag()
-    teleport.create_teleports()
-    draw_portal()
-    draw_guard()
-    draw_soldier(database.load(main.save_number)[1])
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
@@ -58,7 +48,7 @@ def update_text(disappear=False):
         text_rect.topleft = (0, 0)
         screen.blit(text, text_rect)
     else:
-        create_screen()
+        create_screen(main.state["is_loaded"])
 
 
 def update_screen_net(item):
@@ -74,11 +64,10 @@ def update_screen_net(item):
     draw_mine_grass(item)
 
 def draw_mine_grass(item):
-    field = GameField.field
-    for row in range(len(field) - 1):
-        for col in range(len(field[0]) -1):
-            if field[row][col] == item:
-                item_image = pygame.image.load(field[row][col]).convert_alpha()
+    for row in range(consts.MATRIX_ROWS):
+        for col in range(consts.MATRIX_COLS):
+            if GameField.field[row][col] == item:
+                item_image = pygame.image.load(GameField.field[row][col]).convert_alpha()
                 item_image = pygame.transform.scale(item_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
                 x = col * consts.CELL_SIZE
                 y = row * consts.CELL_SIZE
@@ -89,6 +78,7 @@ def draw_soldier(position):
     if main.is_lose() and not guard.state_guard:
         Soldier.injured_soldier()
     Soldier.create(Soldier.soldier_image, position)
+    screen.blit(Soldier.soldier_image, Soldier.soldier_pos)
 
 def draw_explosion():
     screen.blit(explosionImg, consts.EXPLOSION_LOCATION)
@@ -133,16 +123,6 @@ def draw_win_message():
     draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
                  consts.WIN_COLOR, consts.WIN_LOCATION)
     pygame.display.update()
-
-def draw_portal():
-    for row in range(consts.MATRIX_ROWS):
-        for col in range(consts.MATRIX_COLS):
-            if GameField.field[row][col] == consts.TELEPORT_IMG:
-                item_image = pygame.image.load(GameField.field[row][col]).convert_alpha()
-                item_image = pygame.transform.scale(item_image, (consts.MINE_WIDTH, consts.MINE_HEIGHT))
-                x = col * consts.CELL_SIZE
-                y = row * consts.CELL_SIZE
-                screen.blit(item_image, (x, y))
 
 
 def draw_guard():

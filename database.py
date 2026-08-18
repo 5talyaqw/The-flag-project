@@ -44,8 +44,10 @@ def load(num):
         soldier_csv = pd.read_csv(soldier_path, header=None)
         soldier_position.append(soldier_csv.iloc[0,0])
         soldier_position.append(soldier_csv.iloc[1,0])
-        print("loaded!")
-        return loadingField, soldier_position
+
+        Soldier.soldier_pos = soldier_position
+        return loadingField
 
     else:
         print("File doesn't exists")
+        return loadingField

@@ -1,15 +1,14 @@
-import Soldier
 import Screen
+import Soldier
 import pygame
 import consts
-import GameField
 
-guard_img = pygame.image.load(consts.GUARD_IMG)
+guard_img = pygame.image.load(consts.GUARD_IMG).convert_alpha()
 guard_img = pygame.transform.scale(guard_img, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
 guard_topleft_pos = [240,0]
 guard_direction = 'bottom'
 
-guard_caught = pygame.image.load(consts.LOSE_BY_GUARD)
+guard_caught = pygame.image.load(consts.LOSE_BY_GUARD).convert_alpha()
 guard_caught = pygame.transform.scale(guard_caught, (consts.SOLDIER_WIDTH * 2, consts.SOLDIER_HEIGHT * 2))
 
 state_guard = False
@@ -42,6 +41,7 @@ def move_guard():
     else:
         change_direction()
 
+
 def is_touch_soldier():
     global state_guard
 
@@ -56,7 +56,7 @@ def is_touch_soldier():
     if soldier_top_right == guard_topleft_pos and soldier_bottom_right == guard_bottom_left:
         state_guard = True
         return True
-    elif Soldier.soldier_pos == soldier_top_right and soldier_bottom_left == guard_bottom_right:
+    elif Soldier.soldier_pos == guard_top_right and soldier_bottom_left == guard_bottom_right:
         state_guard = True
         return True
 
