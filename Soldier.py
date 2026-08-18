@@ -3,11 +3,13 @@ import pygame
 import consts
 import Screen
 pygame.mixer.init()
+
 soldier = consts.SOLIDER_IMG
 soldier_image = pygame.image.load(soldier)
 soldier_image = pygame.transform.scale(soldier_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
 soldier_rect = soldier_image.get_rect()
 soldier_pos = [0,0]
+
 soldier_injury = consts.INJURY_IMG
 soldierINJURYYYY_image = pygame.image.load(soldier_injury)
 soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SOLDIER_WIDTH, consts.SOLDIER_HEIGHT))
@@ -38,7 +40,7 @@ def move_soldier(event):
 
 def soldier_legs_position():
     soldier_pos_mid_bottom = soldier_rect.midbottom
-    soldier_position_bottom = [soldier_pos_mid_bottom[0] + soldier_pos[0], soldier_pos_mid_bottom[1] + soldier_pos[1]]
+    soldier_position_bottom = (soldier_pos_mid_bottom[0] + soldier_pos[0], soldier_pos_mid_bottom[1] + soldier_pos[1])
     return soldier_position_bottom
 
 

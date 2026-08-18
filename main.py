@@ -1,6 +1,7 @@
 import sys
+
+import guard
 import teleport
-import GameField
 import database
 import Screen
 import Soldier
@@ -22,6 +23,7 @@ NUMBERS = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_
 start_cooldown = 0.0
 hold_key = 0.0
 teleport_cooldown = 0.0
+save_number = 0
 
 def main():
     global teleport_cooldown
@@ -29,8 +31,9 @@ def main():
     Screen.create_screen()
     Screen.update_text()
 
-
     while state["is_window_open"]:
+        guard.move_guard()
+        Screen.create_screen()
         handle_user()
         is_lose()
         is_win()
@@ -51,13 +54,14 @@ def main():
         elif state["state"] == consts.WIN_STATE:
             Screen.draw_win_message()
             break
+
     pygame.quit()
 pass
 
 def handle_user():
     global start_cooldown
     global hold_key
-
+    global save_number
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -88,11 +92,12 @@ def handle_user():
 
             if event.type == pygame.KEYUP and event.key in NUMBERS:
                 end_time = time.time() - hold_key
+                save_number = NUMBERS.index(event.key)
                 if end_time <= 1:
-                    database.save(NUMBERS.index(event.key))
+                    database.save(save_number)
                 else:
-                    database.load(NUMBERS.index(event.key))
-                    Screen.create_screen()
+                    database.load(save_number)
+                    Screen.create_save_screen()
 
 
 
@@ -108,8 +113,9 @@ def night_vision():
             state["night_vision"] = False
 
 def is_lose():
-    if Soldier.is_on_mine():
+    if Soldier.is_on_mine() or guard.is_touch_soldier():
         state["state"] = consts.LOSE_STATE
+
 def is_win():
     if Soldier.is_on_flag():
         state["state"] = consts.WIN_STATE

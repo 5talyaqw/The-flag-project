@@ -2,9 +2,11 @@ import pygame
 import consts
 import GameField
 import Soldier
+import database
 import teleport
 import main
 import time
+import guard
 
 pygame.init()
 screen = pygame.display.set_mode(size=consts.SCREEN_SIZE)
@@ -14,14 +16,24 @@ explosionImg = pygame.transform.scale(explosionImg, (consts.SCREEN_WIDTH / 2, co
 def create_screen():
     screen.fill(consts.BACKGROUND_COLOR)
     pygame.display.set_caption('The flag game')
-    if len(GameField.field) == 0:
-        GameField.create_empty_field()
+    GameField.create_empty_field()
     draw_mine_grass(consts.BUSH_IMG)
     draw_flag()
     teleport.create_teleports()
     draw_portal()
-    draw_soldier()
+    draw_soldier(Soldier.soldier_pos)
+    draw_guard()
 
+def create_save_screen():
+    screen.fill(consts.BACKGROUND_COLOR)
+    pygame.display.set_caption('The flag game')
+    GameField.createField_by_save()
+    draw_mine_grass(consts.BUSH_IMG)
+    draw_flag()
+    teleport.create_teleports()
+    draw_portal()
+    draw_guard()
+    draw_soldier(database.load(main.save_number)[1])
 
 def draw_night_soldier():
     soldier_night = consts.SOLIDER_NIGHT_IMG
@@ -73,10 +85,10 @@ def draw_mine_grass(item):
                 screen.blit(item_image, (x, y))
 
 
-def draw_soldier():
-    if main.is_lose():
+def draw_soldier(position):
+    if main.is_lose() and not guard.state_guard:
         Soldier.injured_soldier()
-    Soldier.create(Soldier.soldier_image, Soldier.soldier_pos)
+    Soldier.create(Soldier.soldier_image, position)
 
 def draw_explosion():
     screen.blit(explosionImg, consts.EXPLOSION_LOCATION)
@@ -91,13 +103,17 @@ def draw_flag():
     screen.blit(flag_img, (flag_x, flag_y))
 
 def draw_lose_message():
-    draw_explosion()
+    if not guard.state_guard:
+        draw_explosion()
+        soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
+        soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+        screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+
+    else:
+        draw_caught_by_guard()
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
-    soldierINJURYYYY_image = pygame.image.load(consts.INJURY_IMG)
-    soldierINJURYYYY_image = pygame.transform.scale(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2,
-                                                                             consts.SCREEN_HEIGHT))
-    screen.blit(soldierINJURYYYY_image, (consts.SCREEN_WIDTH // 2, consts.SCREEN_HEIGHT))
+
 
 
 def draw_message(message, font_size, color, location):
@@ -127,3 +143,11 @@ def draw_portal():
                 x = col * consts.CELL_SIZE
                 y = row * consts.CELL_SIZE
                 screen.blit(item_image, (x, y))
+
+
+def draw_guard():
+    screen.blit(guard.guard_img, guard.guard_topleft_pos)
+
+
+def draw_caught_by_guard():
+    screen.blit(guard.guard_caught, guard.guard_topleft_pos)

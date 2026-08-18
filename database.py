@@ -35,14 +35,17 @@ def load(num):
     game_field_path = Path(f"game_fields\\gameField{num+1}.csv")
     soldier_path = Path(f"game_fields\\soldier_position{num+1}.csv")
 
+    loadingField = []
+    soldier_position = []
+
     if game_field_path.exists():
         game_csv = pd.read_csv(game_field_path)
-        for row in range(consts.MATRIX_ROWS):
-            for col in range(consts.MATRIX_COLS):
-                GameField.field[row][col] = game_csv.iloc[row,col]
-        soldier_csv = pd.read_csv(soldier_path)
-        Soldier.soldier_pos[0] = soldier_csv.iloc[0,0]
-        Soldier.soldier_pos[1] = soldier_csv.iloc[1,0]
+        loadingField = game_csv.values.tolist()
+        soldier_csv = pd.read_csv(soldier_path, header=None)
+        soldier_position.append(soldier_csv.iloc[0,0])
+        soldier_position.append(soldier_csv.iloc[1,0])
+        print("loaded!")
+        return loadingField, soldier_position
 
     else:
         print("File doesn't exists")

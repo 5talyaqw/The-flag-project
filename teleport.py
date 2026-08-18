@@ -2,7 +2,6 @@ import GameField
 import Screen
 import Soldier
 import consts
-import main
 import random
 
 tplist =[]
@@ -18,7 +17,7 @@ def create_teleports():
         pixel_convert = [x, y]
         pixel_teleport_mid_pos.append(pixel_convert)
 
-        if tuple(tp_pos) in mine_pos:
+        if tuple(tp_pos) in mine_pos and GameField.field[tp_pos[0]][tp_pos[1]] == 'flag':
             continue
         else:
             GameField.field[tp_pos[0]][tp_pos[1]] = consts.TELEPORT_IMG
